@@ -49,6 +49,7 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
       {{- end }}
     spec:
+      shareProcessNamespace: true
       serviceAccountName: {{ include "haproxy.serviceAccountName" . }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       securityContext:
@@ -68,10 +69,13 @@ spec:
 {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
 {{- end }}
+      {{- if or (.Values.config) (.Values.extraVolumeMounts) (.Values.mountedSecrets) }}
       volumes:
+        {{- if .Values.config }}
         - name: haproxy-config
           configMap:
             name: {{ include "haproxy.fullname" . }}
+        {{- end }}   
         {{- range $mountedSecret := .Values.mountedSecrets }}
         - name: {{ $mountedSecret.volumeName }}
           secret:
@@ -80,6 +84,7 @@ spec:
         {{- with.Values.extraVolumes }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- if .Values.securityContext.enabled }}
@@ -97,7 +102,7 @@ spec:
           {{- if .Values.args.enabled }}
           args:
             - -f
-            - /usr/local/etc/haproxy/haproxy.cfg
+            - /etc/haproxy/haproxy.cfg
           {{- range .Values.args.extraArgs }}
             - {{ . }}
           {{- end }}
@@ -128,10 +133,13 @@ spec:
 {{ toYaml .Values.lifecycle | indent 12 }}
             {{- end }}
           {{- end }}
+          {{- if or (.Values.config) (.Values.extraVolumeMounts) (.Values.mountedSecrets) }}
           volumeMounts:
+            {{- if .Values.config }}
             - name: haproxy-config
               mountPath: /usr/local/etc/haproxy/haproxy.cfg
               subPath: haproxy.cfg
+            {{- end }}
             {{- with.Values.extraVolumeMounts }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -139,6 +147,7 @@ spec:
             - name: {{ $mountedSecret.volumeName }}
               mountPath: {{ $mountedSecret.mountPath }}
             {{- end }}
+          {{- end }}
       {{- with.Values.initContainers }}
       initContainers:
         {{- toYaml . | nindent 8 }}
