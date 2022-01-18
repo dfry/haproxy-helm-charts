@@ -8,9 +8,9 @@ entries:
         - Require at least 1.17 K8s
     apiVersion: v2
     appVersion: 2.4.8
-    created: "2022-01-18T11:32:02.676297622Z"
+    created: "2022-01-18T12:25:50.961846132Z"
     description: A Helm chart for HAProxy on Kubernetes
-    digest: cb8e75c95510ca3683e8524197a0280e95666e2478173d5a0b21dbcec50a3fe0
+    digest: c31f56cad98b398e184147e2c533eb43d33e36815fb7b57fb9ee6788f7f51f0a
     home: https://github.com/haproxytech/helm-charts/tree/main/haproxy
     icon: https://raw.githubusercontent.com/haproxytech/helm-charts/main/haproxy/chart-icon.png
     keywords:
@@ -32,9 +32,9 @@ entries:
         - Use Ingress Controller 1.7.3 version for base image
     apiVersion: v2
     appVersion: 1.7.3
-    created: "2022-01-18T11:32:02.678671048Z"
+    created: "2022-01-18T12:25:50.964493224Z"
     description: A Helm chart for HAProxy Kubernetes Ingress Controller
-    digest: 99a8b472a355bf216b24f21cb64a70bafc2a611745510ef60b4483029e5e8b24
+    digest: 866155f866b64da2432ef8f56ac67946b6cbe7bdcd627e5d6b654db1488a3cae
     home: https://github.com/haproxytech/helm-charts/tree/main/kubernetes-ingress
     icon: https://raw.githubusercontent.com/haproxytech/helm-charts/main/kubernetes-ingress/chart-icon.png
     keywords:
@@ -55,4 +55,4 @@ entries:
     urls:
     - https://mojaloop.github.io/haproxy-helm-charts/repo/kubernetes-ingress-1.7.2.tgz
     version: 1.7.2
-generated: "2022-01-18T11:32:02.674889906Z"
+generated: "2022-01-18T12:25:50.960249738Z"
